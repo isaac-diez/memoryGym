@@ -1,0 +1,6 @@
+{
+  "name": "Memory Gym",
+  "description": "Una suite interactiva de juegos de estimulación cognitiva y sistema de recordatorios diarios diseñada para apoyar a personas con problemas de memoria.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
