@@ -1,11 +1,10 @@
-name: Deploy MemoryGym
+name: Deploy MemoryGym (Optimizado)
 on:
   push:
     branches: [ main ]
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ lowercase(github.repository) }}
 
 jobs:
   build-and-push:
@@ -13,9 +12,16 @@ jobs:
     permissions:
       contents: read
       packages: write
+    outputs:
+      image_name: ${{ steps.string.outputs.lowercase }}
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
+
+      - name: Convert repository name to lowercase
+        id: string
+        run: |
+          echo "lowercase=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_OUTPUT"
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
@@ -29,19 +35,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-
-  deploy-vps:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    steps:
-      - name: Execute Remote SSH Commands
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd ~/apps/memorygym
-            docker compose pull
-            docker compose up -d
+          tags: ${{ env.REGISTRY }}/${{ steps.string.outputs.lowercase }}:latest
