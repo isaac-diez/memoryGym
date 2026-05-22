@@ -1,0 +1,13 @@
+services:
+  memorygym-app:
+    image: ghcr.io/isaac-diez/memorygym:latest
+    container_name: memorygym_frontend
+    restart: always
+    ports:
+      - "3002:80"
+    networks:
+      - smartapp-network
+
+networks:
+  smartapp-network:
+    external: true
