@@ -341,10 +341,10 @@ export default function FlashcardSet({ decks, onAddCustomDeck, onGameCompletedTo
             <button
               id="flashcard-viewport"
               onClick={handleCardFlip}
-              className="w-full max-w-sm aspect-[4/3] focus:outline-none cursor-pointer group rounded-3xl border border-stone-200 shadow-sm relative transition duration-300"
+              className="w-full max-w-sm focus:outline-none cursor-pointer group rounded-3xl border border-stone-200 shadow-sm relative transition duration-300 text-left"
             >
               {/* Large graphic layout inside flashcard */}
-              <div className="absolute inset-0 bg-white hover:bg-stone-50/50 rounded-3xl p-6 flex flex-col justify-between transition-colors">
+              <div className="w-full min-h-[240px] md:min-h-[280px] bg-white hover:bg-stone-50/50 rounded-3xl p-6 flex flex-col justify-between transition-colors">
                 
                 {/* Top bar */}
                 <div className="flex justify-between items-center w-full">
